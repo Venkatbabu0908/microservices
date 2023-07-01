@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('SCM Checkout'){
             steps {
-            git branch: 'main', url: 'https://github.com/subash211/microservices.git'
+            git branch: 'main', url: 'https://github.com/venkatbabu0908/microservices.git'
             sh 'ls'
             }
         }
@@ -63,7 +63,7 @@ pipeline {
                                     -D sonar.inclusions=index.py \
                                     -D sonar.sourceEncoding=UTF-8 \
                                     -D sonar.language=python \
-                                    -D sonar.host.url=http://3.110.84.183:9000/"""
+                                    -D sonar.host.url=http://http://3.109.123.110:9000/"""
                                 }
                             }
                         }
@@ -76,60 +76,60 @@ pipeline {
                 parallel (
                     'docker login': {
                         withCredentials([string(credentialsId: 'dockerPass', variable: 'dockerPassword')]) {
-                            sh "docker login -u subash211 -p ${dockerPassword}"
+                            sh "docker login -u venkat0908 -p ${dockerPassword}"
                         }
                     },
                     'ui-web-app-reactjs': {
                         dir('ui-web-app-reactjs'){
                             sh """
-                            docker build -t subash211/ui:v1 .
-                            docker push subash211/ui:v1
-                            docker rmi subash211/ui:v1
+                            docker build -t venkat0908/ui:v1 .
+                            docker push venkat0908/ui:v1
+                            docker rmi venkat0908/ui:v1
                             """
                         }
                     },
                     'zuul-api-gateway' : {
                         dir('zuul-api-gateway'){
                             sh """
-                            docker build -t subash211/api:v1 .
-                            docker push subash211/api:v1
-                            docker rmi subash211/api:v1
+                            docker build -t venkat0908/api:v1 .
+                            docker push venkat0908/api:v1
+                            docker rmi venkat0908/api:v1
                             """
                         }
                     },
                     'offers-microservice-spring-boot': {
                         dir('offers-microservice-spring-boot'){
                             sh """
-                            docker build -t subash211/spring:v1 .
-                            docker push subash211/spring:v1
-                            docker rmi subash211/spring:v1
+                            docker build -t venkat0908/spring:v1 .
+                            docker push venkat0908/spring:v1
+                            docker rmi venkat0908/spring:v1
                             """
                         }
                     },
                     'shoes-microservice-spring-boot': {
                         dir('shoes-microservice-spring-boot'){
                             sh """
-                            docker build -t subash211/spring:v2 .
-                            docker push subash211/spring:v2
-                            docker rmi subash211/spring:v2
+                            docker build -t venkat0908/spring:v2 .
+                            docker push venkat0908/spring:v2
+                            docker rmi venkat0908/spring:v2
                             """
                         }
                     },
                     'cart-microservice-nodejs': {
                         dir('cart-microservice-nodejs'){
                             sh """
-                            docker build -t subash211/ui:v2 .
-                            docker push subash211/ui:v2
-                            docker rmi subash211/ui:v2
+                            docker build -t venkat0908/ui:v2 .
+                            docker push venkat0908/ui:v2
+                            docker rmi venkat0908/ui:v2
                             """
                         }
                     },
                     'wishlist-microservice-python': {
                         dir('wishlist-microservice-python'){
                             sh """
-                            docker build -t subash211/python:v1 .
-                            docker push subash211/python:v1
-                            docker rmi subash211/python:v1
+                            docker build -t venkat0908/python:v1 .
+                            docker push venkat0908/python:v1
+                            docker rmi venkat0908/python:v1
                             """
                         }
                     }
